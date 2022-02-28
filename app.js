@@ -1,11 +1,17 @@
+const spinnerTroggle = type => {
+    document.getElementById('preloder').style.display = type;
+}
+
 // getting search value & search in API link
 const loadProducts = () => {
+    spinnerTroggle('block');
     document.getElementById('phone-container').textContent = '';
     document.getElementById('product-details-container').textContent = '';
     const searchText = document.getElementById('search-field');
     const searchValue = searchText.value;
     if (searchValue == '') {
         document.getElementById('error-msg').innerText = 'Field must not be empty';
+        spinnerTroggle('none');
     } else {
         document.getElementById('error-msg').innerText = '';
         fetch(`https://openapi.programming-hero.com/api/phones?search=${searchValue}`)
@@ -41,6 +47,7 @@ const displayProducts = (phones) => {
             }
         });
     }
+    spinnerTroggle('none');
 }
 
 // Load single phone from API
