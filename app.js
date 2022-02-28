@@ -21,20 +21,24 @@ const displayProducts = (phones) => {
     if (phones.length === 0) {
         document.getElementById('error-msg').innerText = "Sorry, we don't have any product on your search";
     } else {
+        let count = 0;
         phones.forEach(phone => {
-            const col = document.createElement('div');
-            col.classList.add('col');
-            col.innerHTML = `
-                <div class="card text-center">
-                    <img src="${phone.image}" class="card-img-top w-50 mx-auto p-4">
-                    <div class="card-body">
-                        <h5 class="card-title">${phone.phone_name}</h5>
-                        <p class="card-text">${phone.brand}</p>
+            count++;
+            if (count <= 20) {
+                const col = document.createElement('div');
+                col.classList.add('col');
+                col.innerHTML = `
+                    <div class="card text-center">
+                        <img src="${phone.image}" class="card-img-top w-50 mx-auto p-4">
+                        <div class="card-body">
+                            <h5 class="card-title">${phone.phone_name}</h5>
+                            <p class="card-text">${phone.brand}</p>
+                        </div>
+                        <button onclick="loadSinglePhone('${phone.slug}')" class="btn btn-primary w-50 mx-auto mb-3">Show Details</button>
                     </div>
-                    <button onclick="loadSinglePhone('${phone.slug}')" class="btn btn-primary w-50 mx-auto mb-3">Show Details</button>
-                </div>
-            `;
-            phoneContainer.appendChild(col);
+                `;
+                phoneContainer.appendChild(col);
+            }
         });
     }
 }
