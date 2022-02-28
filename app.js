@@ -1,3 +1,4 @@
+// function for preloder
 const spinnerTroggle = type => {
     document.getElementById('preloder').style.display = type;
 }
