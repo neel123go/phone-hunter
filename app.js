@@ -1,4 +1,4 @@
-// getting search value & search in API
+// getting search value & search in API link
 const loadProducts = () => {
     document.getElementById('phone-container').textContent = '';
     document.getElementById('product-details-container').textContent = '';
