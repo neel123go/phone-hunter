@@ -19,13 +19,18 @@
         <h2 class="text-center my-4">Phone Releaser</h2>
 
         <!-- Search Field -->
-        <div class="input-group mb-3 w-50 mx-auto">
+        <div class="input-group mb-3 w-75 mx-auto">
             <input id="search-field" type="text" class="form-control" placeholder="Search Your Favorite Phone ....">
             <button onclick="loadProducts()" class="btn btn-outline-secondary">Search</button>
         </div>
 
         <!-- Error Text -->
         <p id="error-msg" class="text-danger text-center fs-5"></p>
+
+        <!-- Display Phone Details Section  -->
+        <div id="product-details-container">
+
+        </div>
 
         <!-- Display All Phones Section -->
         <div id="phone-container" class="row row-cols-1 row-cols-md-3 g-4 my-4">

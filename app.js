@@ -1,6 +1,7 @@
 // getting search value & search in API
 const loadProducts = () => {
     document.getElementById('phone-container').textContent = '';
+    document.getElementById('product-details-container').textContent = '';
     const searchText = document.getElementById('search-field');
     const searchValue = searchText.value;
     if (searchValue == '') {
@@ -43,5 +44,48 @@ const loadSinglePhone = phoneId => {
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => console.log(data.data));
+        .then(data => displayProductDetails(data.data));
+}
+
+// display product details in website
+const displayProductDetails = (productId) => {
+    const productDetailsContainer = document.getElementById('product-details-container');
+    productDetailsContainer.textContent = '';
+    const row = document.createElement('div');
+    row.classList.add('row', 'row-cols-1', 'row-cols-md-2', 'g-4');
+    row.innerHTML = `
+        <div class="col">
+            <div class="card">
+                <img src="${productId.image}" class="card-img-top w-50 mx-auto py-3 my-5 alt="...">
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="mb-5">Product Details</h2>
+                    <h5 class="card-title">${productId.name}</h5>
+                    <p class="card-text">${productId.releaseDate ? productId.releaseDate : 'No realease date found'}</p>
+                    <h5>Main Features</h5>
+                    <ul>
+                        <li>${productId.mainFeatures.chipSet}</li>
+                        <li>${productId.mainFeatures.displaySize}</li>
+                        <li>${productId.mainFeatures.memory}</li>
+                        <li>${productId.mainFeatures.storage}</li>
+                        <li>${productId.mainFeatures.sensors}</li>
+                    </ul>
+                    <h5>Others</h5>
+                    <ul>
+                        <li>Bluetooth: ${productId.others?.Bluetooth ? productId.others.Bluetooth : 'Data Not Found'}</li>
+                        <li>GPS: ${productId.others?.GPS ? productId.others.GPS : 'Data Not Found'}</li>
+                        <li>NFC: ${productId.others?.NFC ? productId.others.NFC : 'Data Not Found'}</li>
+                        <li>Radio: ${productId.others?.Radio ? productId.others.Radio : 'Data Not Found'}</li>
+                        <li>USB: ${productId.others?.USB ? productId.others.USB : 'Data Not Found'}</li>
+                        <li>WLAN: ${productId.others?.WLAN ? productId.others.WLAN : 'Data Not Found'}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+    productDetailsContainer.appendChild(row);
 }
