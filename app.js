@@ -1,5 +1,5 @@
 // getting search value & search in API
-const loadData = () => {
+const loadProducts = () => {
     document.getElementById('phone-container').textContent = '';
     const searchText = document.getElementById('search-field');
     const searchValue = searchText.value;
@@ -9,13 +9,13 @@ const loadData = () => {
         document.getElementById('error-msg').innerText = '';
         fetch(`https://openapi.programming-hero.com/api/phones?search=${searchValue}`)
             .then(res => res.json())
-            .then(data => displayData(data.data));
+            .then(data => displayProducts(data.data));
         searchText.value = '';
     }
 }
 
 // display phone in website
-const displayData = (phones) => {
+const displayProducts = (phones) => {
     const phoneContainer = document.getElementById('phone-container');
     if (phones.length === 0) {
         document.getElementById('error-msg').innerText = "Sorry, we don't have any product on your search";
@@ -30,10 +30,18 @@ const displayData = (phones) => {
                         <h5 class="card-title">${phone.phone_name}</h5>
                         <p class="card-text">${phone.brand}</p>
                     </div>
-                    <button class="btn btn-primary w-50 mx-auto mb-3">Show Details</button>
+                    <button onclick="loadSinglePhone('${phone.slug}')" class="btn btn-primary w-50 mx-auto mb-3">Show Details</button>
                 </div>
             `;
             phoneContainer.appendChild(col);
         });
     }
+}
+
+// Load single phone from API
+const loadSinglePhone = phoneId => {
+    const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => console.log(data.data));
 }
